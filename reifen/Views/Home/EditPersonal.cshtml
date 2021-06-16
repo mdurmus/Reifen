@@ -1,0 +1,54 @@
+﻿@model Personal
+
+<div class="col-12">
+    <div class="card card-success">
+        <div class="card-header">
+            <h3 class="card-title">Bearbeiten</h3>
+        </div>
+        <form asp-controller="Home" asp-action="EditPersonal" method="post">
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-warning"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-warning"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserName"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-warning"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-warning"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-warning"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="isActive"></label>
+                    <input asp-for="isActive" class="form-control" />
+                    <span asp-validation-for="isActive" class="text-warning"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="isManager"></label>
+                    <input asp-for="isManager" class="form-control" />
+                    <span asp-validation-for="isManager" class="text-warning"></span>
+                </div>
+                <input type="hidden" name="PersonalId" value="@Model.PersonalId" />
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button type="submit" class="btn btn-block btn-success">Speichern</button>
+            </div>
+        </form>
+    </div>
+    <!-- /.card -->
+</div>

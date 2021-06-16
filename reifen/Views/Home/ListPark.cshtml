@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Reminder>
+
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">KR Liste</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+                <thead>
+                    <tr>
+                        <th>Name Famillienname</th>
+                        <th>Handynummer</th>
+                        <th>Strasse</th>
+                        <th>KFZ-Kennzeichen</th>
+                        <th>Abholdatum</th>
+                        <th>Verbleibende Tage</th>
+                        <th>Prozess</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        TimeSpan fark = item.EndDate.Subtract(DateTime.Now);
+                        int gun = fark.Days;
+                    <tr>
+                        <td>@item.Name @item.Lastname</td>
+                        <td><a href="tel:@item.GSM" target="_blank">@item.GSM</a></td>
+                        <td>@item.Street</td>
+                        <td>@item.Plate</td>
+                        <td>@item.EndDate.ToShortDateString()</td>
+                        @if (gun <= 10)
+                        {
+                            <td><span class="badge badge-danger">@gun</span></td>
+                        }
+                        else if (gun > 10 && gun <= 20)
+                        {
+                            <td><span class="badge badge-warning">@gun</span></td>
+                        }
+                        else
+                        {
+                            <td><span class="badge badge-success">@gun</span></td>
+                        }
+                        <td>
+                            <a asp-controller="Home" asp-action="EditPark" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Bearbeiten</a>
+                            <a asp-controller="Home" asp-action="DeletePark" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Löschen</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>

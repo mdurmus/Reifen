@@ -1,0 +1,37 @@
+﻿
+<div class="col-12">
+    <div class="card card-success">
+        <div class="card-header">
+            <h3 class="card-title">Bilgilerim</h3>
+        </div>
+        <form asp-controller="Home" asp-action="MyInfo" method="post">
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="control-label">Isminiz</label>
+                    <input name="name" value="@ViewBag.Name" readonly class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Soy isminiz</label>
+                    <input name="LastName" value="@ViewBag.LastName" readonly class="form-control" />
+                    
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Kullanici adiniz</label>
+                    <input name="UserName" value="@ViewBag.UserName" readonly class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Sifreniz</label>
+                    <input name="Password" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="PersonalId" value="@ViewBag.PersonalId" />
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button type="submit" class="btn btn-block btn-success">Kaydet</button>
+            </div>
+        </form>
+    </div>
+    <!-- /.card -->
+</div>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Product>
+@{}
+
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    Registrierte Produkte
+                </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0" style="height: auto;">
+                <table class="table table-head-fixed text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Hersteler</th>
+                            <th>BHZ</th>
+                            <th>EK Netto</th>
+                            <th>EK Brutto</th>
+                            <th>VK Netto</th>
+                            <th>VK Brutto</th>
+                            <th>Menge</th>
+                            <th>Prozzes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>@item.ProductId</td>
+                            <td>@item.Brand.Name</td>
+                            <td>@item.Dimensions</td>
+                            <td>@item.EKNetto</td>
+                            <td>@item.EKBrutto</td>
+                            <td>@item.VKNetto</td>
+                            <td>@item.VKBrutto</td>
+                            <td>@item.StockQuantity</td>
+                            <td>
+                                <a asp-controller="Home" asp-action="EditProduct" asp-route-ProductId="@item.ProductId" class="btn btn-sm btn-warning">Bearbeiten</a>
+                            </td>
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>

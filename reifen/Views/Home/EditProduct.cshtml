@@ -1,0 +1,72 @@
+﻿@model Product
+
+<div class="col-12">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Bearbeiten</h3>
+        </div>
+        <form asp-controller="Home" asp-action="EditProduct" method="post">
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="Brand">Hersteller</label>
+                    <select asp-for="BrandId" asp-items="@ViewBag.Brands" class="form-control"></select>
+                    <span asp-validation-for="Brand" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Dimensions"></label>
+                    <input asp-for="Dimensions" class="form-control" />
+                    <span asp-validation-for="Dimensions" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EKNetto"></label>
+                    <input asp-for="EKNetto" id="eknetto" class="form-control" />
+                    <span asp-validation-for="EKNetto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EKBrutto"></label>
+                    <input asp-for="EKBrutto" id="ekbrutto" readonly class="form-control" />
+                    <span asp-validation-for="EKBrutto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VKNetto"></label>
+                    <input asp-for="VKNetto" id="vknetto" class="form-control" />
+                    <span asp-validation-for="VKNetto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VKBrutto"></label>
+                    <input asp-for="VKBrutto" id="vkbrutto" readonly class="form-control" />
+                    <span asp-validation-for="VKBrutto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StockQuantity">Menge</label>
+                    <input asp-for="StockQuantity" class="form-control" />
+                    <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                </div>
+            </div>
+            <input type="hidden" name="ProductId" value="@Model.ProductId" />
+            <div class="card-footer">
+                <button type="submit" class="btn btn-block btn-primary">Erstellen</button>
+                <a asp-controller="Home" onclick="return confirm('Sind Sie sicher?')" asp-action="DeleteProduct" asp-route-ProductId="@Model.ProductId" class="btn btn-danger btn-block">Löschen</a>
+
+            </div>
+        </form>
+        <div>
+        </div>
+    </div>
+</div>
+
+@section CalculateTax{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#eknetto").on("input", function () {
+                var sayi = $(this).val() * 1.19;
+                $("#ekbrutto").val(sayi.toString());
+            });
+
+            $("#vknetto").on("input", function () {
+                var sayi = $(this).val() * 1.19;
+                $("#vkbrutto").val(sayi.toString());
+            });
+        })
+    </script>
+}

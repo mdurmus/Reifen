@@ -1,0 +1,83 @@
+﻿@model Personal
+
+<div class="col-12">
+    <div class="card card-success">
+        <div class="card-header">
+            <h3 class="card-title">Personal Erstellen</h3>
+        </div>
+        <form asp-controller="Home" asp-action="CreatePersonal" method="post">
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-warning"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-warning"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserName"></label>
+                    <input asp-for="UserName" class="form-control" id="nickname" onfocusout="myFunction()" />
+                    <p id="UserResult"></p>
+                    <span asp-validation-for="UserName" class="text-warning"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-warning"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-warning"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="isActive"></label>
+                    <input asp-for="isActive" class="form-control" />
+                    <span asp-validation-for="isActive" class="text-warning"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="isManager"></label>
+                    <input asp-for="isManager" class="form-control" />
+                    <span asp-validation-for="isManager" class="text-warning"></span>
+                </div>
+
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button type="submit" class="btn btn-block btn-success">Erstellen</button>
+            </div>
+        </form>
+    </div>
+    <!-- /.card -->
+</div>
+
+@section CheckExistUser{
+    <script type="text/javascript">
+        function myFunction() {
+            var username = $("#nickname").val();
+            $.ajax({
+                url: "@Url.Action("CheckUser","Home")",
+                dataType: 'text',
+                type: "POST",
+                data: {
+                    'UserName': username
+                },
+                traditional: true,
+                success: function (data) {
+                    if (data == "Success") {
+                        $("#UserResult").removeClass().addClass("text-green").text("Möglich!");
+                    } else {
+                        $("#UserResult").removeClass().addClass("text-red").text("Nich möglich!");
+                    }
+                },
+                error: function () {
+                    alert("Bitte system hersteller kontaktieren!");
+                }
+            });
+        }
+    </script>
+
+}

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Personal>
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Personalliste <span style="color:red;">Kennwort Zurücksetzen (Kennwort 123)</span></h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0" style="height: auto;">
+            <table class="table table-head-fixed text-nowrap">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Famillienname</th>
+                        <th>Benutzername</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Prozess</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.PersonalId</td>
+                            <td>@item.Name</td>
+                            <td>@item.LastName</td>
+                            <td>@item.UserName</td>
+                            <td>@item.Email</td>
+                            <td>
+                                @if (item.isActive)
+                                {
+                                    <span class="badge badge-success">Aktiv</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">Passiv</span>
+
+                                }
+                            </td>
+                            <td>
+                                <a asp-controller="Home" asp-action="ResetPersonal" asp-route-PersonalId="@item.PersonalId" class="btn btn-sm btn-warning">Kennwort Zurücksetzen</a>
+                                <a asp-controller="Home" asp-action="EditPersonal" asp-route-PersonalId="@item.PersonalId" class="btn btn-sm btn-warning">Bearbeiten</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>

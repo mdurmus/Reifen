@@ -1,0 +1,204 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section dataTableCSS{
+    <link href="~/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Registrierte Produkte</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row">
+                <div class="col-sm-12">
+                    <table id="example" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
+                        <thead>
+                            <tr>
+                                <th>ProductId</th>
+                                <th>Hersteller</th>
+                                <th>BHZ</th>
+                                <th>EK Netto</th>
+                                <th>EK Brutto</th>
+                                <th>VK Netto</th>
+                                <th>VK Brutto</th>
+                                <th>Menge</th>
+                                <th>Prozess</th>
+                                <th>Prozess</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>ProductId</th>
+                                <th>Hersteller</th>
+                                <th>BHZ</th>
+                                <th>EK Netto</th>
+                                <th>EK Brutto</th>
+                                <th>VK Netto</th>
+                                <th>VK Brutto</th>
+                                <th>Menge</th>
+                                <th>Prozess</th>
+                                <th>Prozess</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+<br />
+
+<div class="modal fade" id="modal-sm" aria-hidden="true" style="display:none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Neue reifen hinzufügen</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Home" asp-action="AddStock" method="post">
+                    <div class="form-group">
+                        <label class="control-label">Menge</label>
+                        <input type="number" name="quantity" class="form-control" />
+                    </div>
+                    <input type="text" readonly class="form-control" name="productId" id="productId" />
+                    <div class="modal-footer justify-content-between">
+                        <input type="submit" class="btn btn-primary btn-block" value="Speichern" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modal-sm-minus" aria-hidden="true" style="display:none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Reifen Entfernen</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Home" asp-action="MinusStock" method="post">
+                    <div class="form-group">
+                        <label class="control-label">Menge</label>
+                        <input type="number" name="quantity" class="form-control" />
+                    </div>
+                    <input type="text" readonly class="form-control" name="mproductId" id="mproductId" />
+                    <div class="modal-footer justify-content-between">
+                        <input type="submit" class="btn btn-warning btn-block" value="Speichern" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section Productable{
+
+
+    <script src="~/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    @*<script src="~/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>*@
+
+
+    <script>
+        $(document).ready(function () {
+            $("#example").DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "responsive": true,
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "ajax": {
+                    "url": "/Home/LoadProducts",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs":
+                    [{
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    }],
+                "columns": [
+                    { "data": "productId", "name": "productId", "autoWidth": true },
+                    { "data": "brand", "name": "brand", "autoWidth": true },
+                    { "data": "dimensions", "name": "dimensions", "autoWidth": true },
+                    { "data": "ekNetto", "name": "ekNetto", "autoWidth": true },
+                    { "data": "ekBrutto", "name": "ekBrutto", "autoWidth": true },
+                    { "data": "vkNetto", "name": "vkNetto", "autoWidth": true },
+                    { "data": "vkBrutto", "name": "vkBrutto", "autoWidth": true },
+                    { "data": "stockQuantity", "name": "stockQuantity", "autoWidth": true },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-info" id="addStock" data-toggle="modal" data-id="' + full.productId + '" data-target="#modal-sm">Eingang</a>';
+                        }
+                    },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-danger" id="minusStock" data-toggle="modal" data-id="' + full.productId + '" data-target="#modal-sm-minus">Ausgang</a > ';
+                        }
+                    },
+                ]
+
+            });
+        });
+    </script>
+
+    <script>
+        $(document).on("click", "#addStock", function (e) {
+
+            e.preventDefault();
+
+            var _self = $(this);
+
+            var productId = _self.data('id');
+            $("#productId").val(productId);
+
+            $(_self.attr('href')).modal('show');
+        });
+    </script>
+
+    <script>
+        $(document).on("click", "#minusStock", function (e) {
+
+            e.preventDefault();
+
+            var _self = $(this);
+
+            var productId = _self.data('id');
+            $("#mproductId").val(productId);
+
+            $(_self.attr('href')).modal('show');
+        });
+    </script>
+}
+
+
+@*href="/Home/AddStock?productId=' + full.productId + '*@
+
