@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Brand>
+
+    <div class="col-md-12">
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Neu Marke</h3>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Home" asp-action="CreateBrand" method="post">
+                    <input class="form-control" name="name" type="text">
+                   
+                    <input type="submit" class="btn btn-block btn-primary" value="Erstellen" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Eingetragene Marken</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width:75%;">Marke</th>
+                            <th>Prozess</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>
+                                    <a class="btn btn-warning" asp-controller="Home" asp-action="EditBrand" asp-route-id="@item.BrandId">Bearbeiten</a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+

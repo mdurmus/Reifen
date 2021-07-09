@@ -1,0 +1,57 @@
+﻿@model Product
+
+
+<div class="col-12">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Marken: @Model.Brand.Name - BHZ: @Model.Dimensions</h3>
+        </div>
+        <form asp-controller="Home" asp-action="EditPrice" method="post">
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="EKNetto"></label>
+                    <input asp-for="EKNetto" id="eknetto" class="form-control" />
+                    <span asp-validation-for="EKNetto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EKBrutto"></label>
+                    <input asp-for="EKBrutto" id="ekbrutto" readonly class="form-control" />
+                    <span asp-validation-for="EKBrutto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VKNetto"></label>
+                    <input asp-for="VKNetto" id="vknetto" class="form-control" />
+                    <span asp-validation-for="VKNetto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VKBrutto"></label>
+                    <input asp-for="VKBrutto" id="vkbrutto" readonly class="form-control" />
+                    <span asp-validation-for="VKBrutto" class="text-danger"></span>
+                </div>
+            </div>
+            <input type="hidden" name="ProductId" value="@Model.ProductId" />
+            <div class="card-footer text-center">
+                <button type="submit" class="btn btn-success col-md-5">Speichern</button>
+                <a class="btn btn-danger col-md-5" asp-controller="Home" asp-action="Index">Zurück</a>
+            </div>
+        </form>
+        <div>
+        </div>
+    </div>
+</div>
+
+@section CalculateTax{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#eknetto").on("input", function () {
+                var sayi = $(this).val() * 1.19;
+                $("#ekbrutto").val(sayi.toString());
+            });
+
+            $("#vknetto").on("input", function () {
+                var sayi = $(this).val() * 1.19;
+                $("#vkbrutto").val(sayi.toString());
+            });
+        })
+    </script>
+}

@@ -20,18 +20,51 @@ namespace reifen.Controllers
             context = _context;
         }
 
+        public IActionResult Brands()
+        {
+            var model = context.Brands.ToList();
+            return View(model);
+        }
+
+        public IActionResult EditBrand(int Id)
+        {
+            var model = context.Brands.Find(Id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditBrand(Brand brand)
+        {
+            var model = context.Brands.Find(brand.BrandId);
+            model.Name = brand.Name;
+            context.SaveChanges();
+            return RedirectToAction("Brands","Home");
+        }
+
+        [HttpPost]
+        public IActionResult CreateBrand(Brand brand)
+        {
+            if (!string.IsNullOrEmpty(brand.Name))
+            {
+                context.Brands.Add(brand);
+                context.SaveChanges();
+                return RedirectToAction("Brands", "Home");
+            }
+            return RedirectToAction("Brands","Home");
+        }
+
         public IActionResult ResetPersonal(int PersonalId)
         {
             var model = context.Personals.Find(PersonalId);
             model.Password = "123";
             context.SaveChanges();
-            return RedirectToAction("ListPersonal","Home");
+            return RedirectToAction("ListPersonal", "Home");
         }
 
         public IActionResult MyInfo()
         {
             string username = Request.Cookies["username"];
-          
+
             var model = context.Personals.Where(p => p.UserName == username).FirstOrDefault();
             ViewBag.Name = model.Name;
             ViewBag.LastName = model.LastName;
@@ -41,7 +74,7 @@ namespace reifen.Controllers
         }
 
         [HttpPost]
-        public IActionResult MyInfo(string name, string lastname,string password,int personalId)
+        public IActionResult MyInfo(string name, string lastname, string password, int personalId)
         {
 
             var model = context.Personals.Find(personalId);
@@ -49,7 +82,7 @@ namespace reifen.Controllers
             model.Name = name;
             model.Password = password;
             context.SaveChanges();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult DeletePark(int Id)
@@ -61,7 +94,7 @@ namespace reifen.Controllers
         }
         public IActionResult ListPark()
         {
-            return View(context.Reminders.OrderByDescending(p=>p.EndDate).ToList());
+            return View(context.Reminders.OrderByDescending(p => p.EndDate).ToList());
         }
 
         public IActionResult CreatePark()
@@ -134,8 +167,27 @@ namespace reifen.Controllers
             return View();
         }
 
+        public IActionResult EditPrice(int ProductId)
+        {
+            var model = context.Products.Include("Brand").Where(p => p.ProductId == ProductId).FirstOrDefault();
+            return View(model);
+        }
+
         [HttpPost]
-        public IActionResult LoadProducts(string productId)
+        public IActionResult EditPrice(Product pro)
+        {
+            var model = context.Products.Find(pro.ProductId);
+            model.EKBrutto = pro.EKBrutto;
+            model.EKNetto = pro.EKNetto;
+            model.VKBrutto = pro.VKBrutto;
+            model.VKNetto = pro.VKNetto;
+            context.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        [HttpPost]
+        public IActionResult LoadProducts(int ProductId)
         {
             try
             {
