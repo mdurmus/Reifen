@@ -19,10 +19,6 @@
                     <table id="example" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
                         <thead>
                             <tr>
-                                <th>Prozess</th>
-                                <th>Prozess</th>
-                                <th>Prozess</th>
-                                <th>P-Id</th>
                                 <th>Hersteller</th>
                                 <th>BHZ</th>
                                 <th>EK-N</th>
@@ -30,16 +26,16 @@
                                 <th>VK-N</th>
                                 <th>VK-B</th>
                                 <th>Menge</th>
+                                <th>Prozess</th>
+                                <th>Prozess</th>
+                                <th>Prozess</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Prozess</th>
-                                <th>Prozess</th>
-                                <th>Prozess</th>
-                                <th>P-Id</th>
                                 <th>Hersteller</th>
                                 <th>BHZ</th>
                                 <th>EK-N</th>
@@ -47,6 +43,10 @@
                                 <th>VK-N</th>
                                 <th>VK-B</th>
                                 <th>Menge</th>
+                                <th>Prozess</th>
+                                <th>Prozess</th>
+                                <th>Prozess</th>
+                                <th></th>
                             </tr>
                         </tfoot>
                     </table>
@@ -114,14 +114,10 @@
 </div>
 
 @section Productable{
-
-
     <script src="~/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="~/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="~/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-
-
     <script>
         $(document).ready(function () {
             var table = $("#example").DataTable({
@@ -143,29 +139,29 @@
                 },
                 "columnDefs":
                     [
+                        { "data": "brand", "autoWidth": true, "targets": 0 },
+                        { "data": "dimensions", "autoWidth": true, "targets": 1 },
+                        { "data": "ekNetto", "autoWidth": true, "targets": 2 },
+                        { "data": "ekBrutto", "autoWidth": true, "targets": 3 },
+                        { "data": "vkNetto", "autoWidth": true, "targets": 4 },
+                        { "data": "vkBrutto", "autoWidth": true, "targets": 5 },
+                        { "data": "stockQuantity", "autoWidth": true, "targets": 6 },
                         {
-                            "targets": 0,
+                            "targets": 7,
                             "data": null,
                             "defaultContent": "<button class='eingang btn btn-primary btn-sm'>Eingang</button>"
                         },
                         {
-                            "targets": 1,
+                            "targets": 8,
                             "data": null,
                             "defaultContent": "<button class='ausgang btn btn-danger btn-sm'>Ausgang</button>"
                         },
                         {
-                            "targets": 2,
+                            "targets": 9,
                             "data": null,
                             "defaultContent": "<button class='btn btn-warning bearbeiten btn-sm'>Bearbeiten</button>"
                         },
-                        { "data": "productId", "name": "productId", "autoWidth": true, "targets": 3 },
-                        { "data": "brand", "autoWidth": true, "targets": 4 },
-                        { "data": "dimensions", "autoWidth": true, "targets": 5 },
-                        { "data": "ekNetto", "autoWidth": true, "targets": 6 },
-                        { "data": "ekBrutto", "autoWidth": true, "targets": 7 },
-                        { "data": "vkNetto", "autoWidth": true, "targets": 8 },
-                        { "data": "vkBrutto", "autoWidth": true, "targets": 9 },
-                        { "data": "stockQuantity", "autoWidth": true, "targets": 10 }
+                        { "targets":10, "data": "productId", "name": "productId", "autoWidth": true, "visible": false }
                     ],
             });
             $('#example tbody').on('click', 'button.eingang', function () {
@@ -184,15 +180,8 @@
                 var data = table.row($(this).parents('tr')).data();
                 var urunId = data.productId;
                 document.location = '@Url.Action("EditPrice", "Home")' + '?ProductId=' + parseInt(urunId);
-           
-
-
             });
         });
-    </script>
-
-    <script>
-
     </script>
 }
 
