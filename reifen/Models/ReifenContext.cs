@@ -17,10 +17,10 @@ namespace reifen.Models
         {
             //optionsBuilder.UseSqlServer(
             //   @"Server=server.kita365.de;Database=reifenozdb;User Id=reifenozdb;Password=cngwmqfjivu0tpehdyok;");
-            ////optionsBuilder.UseSqlServer(
-            //   @"Server=server.kita365.de;Database=reifendb;User Id=reifenusr;Password=kgwvpzfaed3xlbhcjstm;");
             optionsBuilder.UseSqlServer(
-            @"Server=DESKTOP-HU40FCR\SQLSERVER;Database=ReifenDatabase;User Id=sa;Password=Mehmet123?;");
+            @"Server=server.kita365.de;Database=reifendb;User Id=reifenusr;Password=kgwvpzfaed3xlbhcjstm;");
+            //optionsBuilder.UseSqlServer(
+            //@"Server=DESKTOP-HU40FCR\SQLSERVER;Database=ReifenDatabase;User Id=sa;Password=Mehmet123?;");
         }
 
         public DbSet<Brand> Brands { get; set; }
