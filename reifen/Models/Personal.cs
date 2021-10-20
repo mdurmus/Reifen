@@ -8,6 +8,7 @@ namespace reifen.Models
 {
     public class Personal
     {
+        //burayi degistirdim
 
         public int PersonalId { get; set; }
         
